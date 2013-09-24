@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<analysisEngineDescription xmlns="http://uima.apache.org/resourceSpecifier">
+  <frameworkImplementation>org.apache.uima.java</frameworkImplementation>
+  <primitive>false</primitive>  
+  <delegateAnalysisEngineSpecifiers>
+    <delegateAnalysisEngine key="QASentenceAnnotatorDescriptor">
+      <import location="descriptors/analysis-engine/QASentenceAnnotatorDescriptor.xml"/>
+    </delegateAnalysisEngine>
+  <delegateAnalysisEngine key="TokenAnnotatorDescriptor">
+      <import location="descriptors/analysis-engine/TokenAnnotatorDescriptor.xml"/>
+    </delegateAnalysisEngine>
+  <delegateAnalysisEngine key="NGramAnnotatorDescriptor">
+      <import location="descriptors/analysis-engine/NGramAnnotatorDescriptor.xml"/>
+    </delegateAnalysisEngine>
+    <delegateAnalysisEngine key="ScoringDescriptor">
+      <import location="descriptors/analysis-engine/ScoringDescriptor.xml"/>
+    </delegateAnalysisEngine>
+    <delegateAnalysisEngine key="EvaluationDescriptor">
+      <import location="descriptors/analysis-engine/EvaluationDescriptor.xml"/>
+    </delegateAnalysisEngine>
+  </delegateAnalysisEngineSpecifiers>
+  <analysisEngineMetaData>
+    <name>deiis_ae</name>
+    <description>Analysis Engine Descriptor for QA Information Processing Pipeline. Detects Tokens, N-grams, Question, Answer, etc.</description>
+    <version>1.0</version>
+    <vendor>Carnegie Mellon University</vendor>
+    <configurationParameters searchStrategy="language_fallback"/>
+    <configurationParameterSettings/>
+    <flowConstraints>
+      <fixedFlow>
+        <node>QASentenceAnnotatorDescriptor</node>
+      <node>TokenAnnotatorDescriptor</node>
+      <node>NGramAnnotatorDescriptor</node>
+        <node>ScoringDescriptor</node>
+        <node>EvaluationDescriptor</node>
+      </fixedFlow>
+    </flowConstraints>
+    <typePriorities/>
+    <fsIndexCollection/>
+    <capabilities>
+      <capability>
+        <inputs/>
+        <outputs>
+          <type allAnnotatorFeatures="true">edu.cmu.deiis.types.Token</type>
+          <type allAnnotatorFeatures="true">edu.cmu.deiis.types.Question</type>
+          <type allAnnotatorFeatures="true">edu.cmu.deiis.types.Answer</type>
+        <type allAnnotatorFeatures="true">edu.cmu.deiis.types.NGram</type>
+          <type allAnnotatorFeatures="true">edu.cmu.deiis.types.AnswerScore</type>
+        <type allAnnotatorFeatures="true">edu.cmu.deiis.types.POSToken</type>
+          <type allAnnotatorFeatures="true">edu.cmu.deiis.types.LemmaToken</type>
+        </outputs>
+        <languagesSupported/>
+      </capability>
+    </capabilities>
+  <operationalProperties>
+      <modifiesCas>true</modifiesCas>
+      <multipleDeploymentAllowed>true</multipleDeploymentAllowed>
+      <outputsNewCASes>false</outputsNewCASes>
+    </operationalProperties>
+  </analysisEngineMetaData>
+  <resourceManagerConfiguration/>
+</analysisEngineDescription>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
+    <name>token-types</name>
+    <description>Token types used by TokenAnnotator</description>
+    <version>1.0</version>
+    <vendor>Carnegie Mellon University</vendor>
+   <types>
+    <typeDescription>
+      <name>edu.cmu.deiis.types.POSToken</name>
+      <description/>
+      <supertypeName>uima.tcas.Annotation</supertypeName>
+      <features>
+        <featureDescription>
+          <name>posTag</name>
+          <description>Contains the actual POS Tag</description>
+          <rangeTypeName>uima.cas.String</rangeTypeName>
+        </featureDescription>
+      </features>
+    </typeDescription>
+    <typeDescription>
+      <name>edu.cmu.deiis.types.LemmaToken</name>
+      <description>contains the lemmatized token of the word</description>
+      <supertypeName>uima.tcas.Annotation</supertypeName>
+      <features>
+        <featureDescription>
+          <name>lemmaToken</name>
+          <description/>
+          <rangeTypeName>uima.cas.String</rangeTypeName>
+        </featureDescription>
+      </features>
+    </typeDescription>
+  </types>
+  </typeSystemDescription>

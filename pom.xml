@@ -4,6 +4,11 @@
 	<groupId>edu.cmu.lti.11791.f13.hw2</groupId>
 	<artifactId>hw2-kmuruges</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<name>11-791-Fall2013-HW2</name>
+	<scm>
+		<connection>scm:git:git@github.com:keerthi166/CMU-11791-HW2.git</connection>
+		<developerConnection>scm:git:git@github.com:keerthi166/CMU-11791-HW2.git</developerConnection>
+	</scm>
 	<repositories>
 		<repository>
 			<id>oaqa</id>
@@ -73,6 +78,22 @@
 			<groupId>org.apache.uima</groupId>
 			<artifactId>uimaj-as-jms</artifactId>
 			<version>2.4.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.uima</groupId>
+			<artifactId>uimafit-core</artifactId>
+			<version>2.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>edu.stanford.nlp</groupId>
+			<artifactId>stanford-corenlp</artifactId>
+			<version>3.2.0</version>
+		</dependency>
+		<dependency>
+			<groupId>edu.stanford.nlp</groupId>
+			<artifactId>stanford-corenlp</artifactId>
+			<version>3.2.0</version>
+			<classifier>models</classifier>
 		</dependency>
 	</dependencies>
 </project>

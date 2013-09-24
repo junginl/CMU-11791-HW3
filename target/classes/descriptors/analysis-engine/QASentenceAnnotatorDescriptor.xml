@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Sample Analusis Engine Descriptor for HW1
+-->
+<analysisEngineDescription xmlns="http://uima.apache.org/resourceSpecifier">
+  <frameworkImplementation>org.apache.uima.java</frameworkImplementation>
+  <primitive>true</primitive>
+
+  <annotatorImplementationName>edu.cmu.deiis.annotator.TestElementAnnotator</annotatorImplementationName>
+  <analysisEngineMetaData>
+    <name>TestElementAnnotator</name>
+    <description>TestElementAnnotator tannotates the given input data in raw format to a question and answer set pair. This is the first step in the pipepine of QA information processing system. The annotated indexes are stored in JCas indexes.</description>
+    <version>1.0</version>
+    <vendor>Carnegie Mellon University</vendor>
+    <configurationParameters>
+      <configurationParameter>
+        <name>questionPatternString</name>
+        <description>Regex pattern for annotating Question</description>
+        <type>String</type>
+        <multiValued>false</multiValued>
+        <mandatory>true</mandatory>
+      </configurationParameter>
+      <configurationParameter>
+        <name>answersPatternString</name>
+        <description>Regex pattern for Answer types</description>
+        <type>String</type>
+        <multiValued>false</multiValued>
+        <mandatory>true</mandatory>
+      </configurationParameter>
+    </configurationParameters>
+    <configurationParameterSettings>
+      <nameValuePair>
+        <name>questionPatternString</name>
+        <value>
+          <string>(Q .+)</string>
+        </value>
+      </nameValuePair>
+      <nameValuePair>
+        <name>answersPatternString</name>
+        <value>
+          <string>(A [01]+ .+)</string>
+        </value>
+      </nameValuePair>
+    </configurationParameterSettings>
+    <typeSystemDescription>
+      <imports>
+        <import location="../types/deiis_types.xml"/>
+      </imports>
+    </typeSystemDescription>
+    <typePriorities/>
+    <fsIndexCollection/>
+    <capabilities>
+      <capability>
+        <inputs/>
+        <outputs>
+          <type allAnnotatorFeatures="true">edu.cmu.deiis.types.Question</type>
+          <type allAnnotatorFeatures="true">edu.cmu.deiis.types.Answer</type>
+        </outputs>
+        <languagesSupported/>
+      </capability>
+    </capabilities>
+	<operationalProperties>
+		<modifiesCas>true</modifiesCas>
+		<multipleDeploymentAllowed>true</multipleDeploymentAllowed>
+		<outputsNewCASes>false</outputsNewCASes>
+	</operationalProperties>
+  </analysisEngineMetaData>
+<resourceManagerConfiguration/>
+</analysisEngineDescription>

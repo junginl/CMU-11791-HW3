@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
   <name>deiis_types</name>
-  <description/>
+  <description>Base types for QA System</description>
   <version>1.0</version>
   <vendor/>
   <types>

@@ -1,0 +1,18 @@
+Question: Q Booth shot Lincoln?
++ 0.96 A 1 Booth shot Lincoln.
+- 0.5 A 0 Lincoln shot Booth.
+- 0.38 A 0 Lincoln assassinated Booth.
++ 0.38 A 1 Booth assassinated Lincoln.
+- 0.31 A 0 Booth was shot by Lincoln.
++ 0.31 A 1 Lincoln was shot by Booth.
+- 0.24 A 0 Booth was assassinated by Lincoln.
++ 0.24 A 1 Lincoln was assassinated by Booth.
+Precision at 8: 0.5
+Question: Q John loves Mary?
++ 0.96 A 1 John loves Mary.
++ 0.36 A 1 John loves Mary with all his heart.
++ 0.23 A 1 Mary is dearly loved by John.
+- 0.0 A 0 John doesn't love Mary.
+- 0.0 A 0 Mary doesn't love John.
+Precision at 5: 1.0
+Average Precision: 0.75

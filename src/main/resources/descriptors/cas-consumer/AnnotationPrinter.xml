@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<casConsumerDescription xmlns="http://uima.apache.org/resourceSpecifier">
+    <frameworkImplementation>org.apache.uima.java</frameworkImplementation>
+    <implementationName>edu.cmu.deiis.cpe.AnnotationPrinter</implementationName>
+	<processingResourceMetaData>
+		<name>Annotation Printer</name>
+		<description>PrettyPrints QA System Output.</description>
+		<version>1.0</version>
+		<vendor>Carnegie Mellon University</vendor>
+		<configurationParameters>
+			<configurationParameter>
+				<name>outputFile</name>
+				<description>File to which annotations will be printed</description>
+				<type>String</type>
+				<multiValued>false</multiValued>
+				<mandatory>false</mandatory>
+			</configurationParameter>
+		</configurationParameters>
+		<configurationParameterSettings>
+			<nameValuePair>
+				<name>outputFile</name>
+				<value>
+					<string>target/output.txt</string>
+				</value>
+			</nameValuePair>
+		</configurationParameterSettings>
+		<typeSystemDescription>
+			<imports>
+				<import location="../types/output-types.xml"/>
+      </imports>
+		</typeSystemDescription>
+		<typePriorities/>
+    <fsIndexCollection/>
+    <capabilities>
+			<capability>
+				<inputs>
+          <type allAnnotatorFeatures="true">edu.cmu.deiis.types.QASystemOutput</type>
+        </inputs>
+			<outputs/>
+        <languagesSupported/>
+      </capability>
+		</capabilities>
+		<operationalProperties>
+			<modifiesCas>false</modifiesCas>
+			<multipleDeploymentAllowed>true</multipleDeploymentAllowed>
+			<outputsNewCASes>false</outputsNewCASes>
+		</operationalProperties>
+	</processingResourceMetaData>
+<resourceManagerConfiguration/>
+</casConsumerDescription>

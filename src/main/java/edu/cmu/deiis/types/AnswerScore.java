@@ -10,8 +10,8 @@ import org.apache.uima.jcas.cas.TOP_Type;
 
 
 /** 
- * Updated by JCasGen Sun Sep 29 22:37:37 EDT 2013
- * XML source: /usr0/home/kmuruges/Shared/Dropbox/CMU/Workspace/hw3-kmuruges/src/main/resources/descriptors/types/output-types.xml
+ * Updated by JCasGen Wed Oct 02 21:29:54 EDT 2013
+ * XML source: /usr0/home/kmuruges/Shared/Dropbox/CMU/Workspace/hw3-kmuruges/src/main/resources/descriptors/analysis-engine/ScoringDescriptor.xml
  * @generated */
 public class AnswerScore extends Annotation {
   /** @generated

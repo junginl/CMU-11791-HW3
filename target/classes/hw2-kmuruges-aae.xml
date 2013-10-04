@@ -58,5 +58,6 @@
       <outputsNewCASes>false</outputsNewCASes>
     </operationalProperties>
   </analysisEngineMetaData>
-  <resourceManagerConfiguration/>
+  <resourceManagerConfiguration>
+    </resourceManagerConfiguration>
 </analysisEngineDescription>

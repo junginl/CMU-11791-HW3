@@ -2,6 +2,7 @@ package edu.cmu.deiis.annotator;
 
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -20,6 +21,7 @@ import edu.cmu.deiis.types.LemmaToken;
 import edu.cmu.deiis.types.POSToken;
 import edu.cmu.deiis.types.Question;
 import edu.cmu.deiis.types.Token;
+import edu.cmu.deiis.util.NLPUtils;
 import edu.stanford.nlp.dcoref.CorefChain;
 import edu.stanford.nlp.dcoref.CorefCoreAnnotations.CorefChainAnnotation;
 import edu.stanford.nlp.ling.CoreAnnotations.CharacterOffsetBeginAnnotation;
@@ -95,7 +97,6 @@ public class TokenAnnotator extends JCasAnnotator_ImplBase {
     List<CoreMap> sentences = document.get(SentencesAnnotation.class);
     String word = null;
     String pos = null;
-    String ne = null;
     String lemma = null;
     int startInd = 0;
     int endInd = 0;
@@ -105,8 +106,17 @@ public class TokenAnnotator extends JCasAnnotator_ImplBase {
       for (CoreLabel token : sentence.get(TokensAnnotation.class)) {
         // this is the text of the token
         word = token.get(TextAnnotation.class);
-        // this is the POS tag of the token
+        try {
+          if (NLPUtils.isStopWord(word)) {
+            System.out.println("Skipping : " + word);
+            continue;
+          }
+        } catch (URISyntaxException e) {
+          System.err.println("Warning: Cannot check for stopwords");
+        }
+        // Get POS tag of the token
         pos = token.get(PartOfSpeechAnnotation.class);
+        // Get Lemma of the token
         lemma = token.get(LemmaAnnotation.class);
 
         // Create Token annotation object
@@ -123,18 +133,17 @@ public class TokenAnnotator extends JCasAnnotator_ImplBase {
         wordtoken.setConfidence(1.0);
         // Write the token to the annotator index
         wordtoken.addToIndexes();
-        // Get the start and end index (with offset) from Stanford NLP tagger
+        // Get the start and end index (with offset) from Stanford NLP POS tagger
         posToken.setPosTag(pos);
         posToken.setBegin(startInd);
         posToken.setEnd(endInd);
         // Write the postoken to the annotator index
         posToken.addToIndexes();
-
         // Get the start and end index (with offset) from Stanford NLP lemmatizer
         lemmaToken.setLemmaToken(lemma);
         lemmaToken.setBegin(startInd);
         lemmaToken.setEnd(endInd);
-        // Write the postoken to the annotator index
+        // Write the lemmatoken to the annotator index
         lemmaToken.addToIndexes();
       }
       posInd += questionSent.length() + endLineCharSize;
@@ -166,8 +175,16 @@ public class TokenAnnotator extends JCasAnnotator_ImplBase {
           for (CoreLabel token : sentence1.get(TokensAnnotation.class)) {
             // get the text of the token
             word = token.get(TextAnnotation.class);
+            try {
+              if (NLPUtils.isStopWord(word)) {
+                continue;
+              }
+            } catch (URISyntaxException e) {
+              System.err.println("Warning: Cannot check for stopwords");
+            }
             // get the POS tag of the token
             pos = token.get(PartOfSpeechAnnotation.class);
+            // Get lemma of the token
             lemma = token.get(LemmaAnnotation.class);
             // Create Token annotation object
             Token wordtoken = new Token(aJCas);

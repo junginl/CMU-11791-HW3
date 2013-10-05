@@ -14,7 +14,7 @@ import org.apache.uima.cas.Feature;
 import org.apache.uima.jcas.tcas.Annotation_Type;
 
 /** Output type for CasConsumer
- * Updated by JCasGen Sun Sep 29 22:37:38 EDT 2013
+ * Updated by JCasGen Fri Oct 04 20:18:18 EDT 2013
  * @generated */
 public class QASystemOutput_Type extends Annotation_Type {
   /** @generated */

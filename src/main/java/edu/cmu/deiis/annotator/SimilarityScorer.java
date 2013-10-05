@@ -1,20 +1,18 @@
 package edu.cmu.deiis.annotator;
 
 import java.util.ArrayList;
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 import java.util.List;
 
 import org.apache.uima.UimaContext;
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
+import org.apache.uima.analysis_engine.ResultSpecification;
 import org.apache.uima.fit.component.JCasAnnotator_ImplBase;
 import org.apache.uima.fit.util.JCasUtil;
 import org.apache.uima.jcas.JCas;
 import org.apache.uima.resource.ResourceInitializationException;
 import org.apache.uima.util.Level;
 import org.apache.uima.util.Logger;
-import org.cleartk.ne.type.NamedEntity;
 import org.cleartk.ne.type.NamedEntityMention;
 
 import edu.cmu.deiis.types.Answer;
@@ -63,8 +61,14 @@ public class SimilarityScorer extends JCasAnnotator_ImplBase {
     List<NGram> nGramTokens = JCasUtil.selectCovered(NGram.class, question);
     List<POSToken> posTokens = JCasUtil.selectCovered(POSToken.class, question);
     List<LemmaToken> lemmaTokens = JCasUtil.selectCovered(LemmaToken.class, question);
+    ResultSpecification resultSpec = getResultSpecification();
+    // Check the status of the remote annotation service call
+    boolean remoteAnnotStatus = resultSpec.containsType("org.cleartk.ne.type.NamedEntityMention",
+            aJCas.getDocumentLanguage());
+
     List<NamedEntityMention> neList = new ArrayList<NamedEntityMention>(0);
-    if (JCasUtil.contains(aJCas, question, NamedEntityMention.class)) {
+    if (remoteAnnotStatus) {
+      neList = new ArrayList<NamedEntityMention>(0);
       neList = JCasUtil.selectCovered(NamedEntityMention.class, question);
     }
 
@@ -146,8 +150,10 @@ public class SimilarityScorer extends JCasAnnotator_ImplBase {
       posTokens = JCasUtil.selectCovered(POSToken.class, answer);
       lemmaTokens = JCasUtil.selectCovered(LemmaToken.class, answer);
       neList = new ArrayList<NamedEntityMention>(0);
-      if (JCasUtil.contains(aJCas, answer, NamedEntityMention.class)) {
-        neList = JCasUtil.selectCovered(NamedEntityMention.class, answer);
+      if (remoteAnnotStatus) {
+        if (JCasUtil.contains(aJCas, answer, NamedEntityMention.class)) {
+          neList = JCasUtil.selectCovered(NamedEntityMention.class, answer);
+        }
       }
 
       aNegCt = qNegCt;
@@ -188,18 +194,30 @@ public class SimilarityScorer extends JCasAnnotator_ImplBase {
 
       // Score the Question Answer Frequency vector using Word-based Matching
 
-      scores.add(ScoringUtils.computeWordMatchBasedScore(questionUnigramBOW, answerUnigramBOW));
-      scoreWeights.add(3.0);
-      scores.add(ScoringUtils.computeWordMatchBasedScore(questionBigramBOW, answerBigramBOW));
-      scoreWeights.add(1.0);
-      scores.add(ScoringUtils.computeWordMatchBasedScore(questionTrigramBOW, answerTrigramBOW));
-      scoreWeights.add(1.0);
-      scores.add(ScoringUtils.computeWordMatchBasedScore(questionPOSBOW, answerPOSBOW));
-      scoreWeights.add(2.0);
-      scores.add(ScoringUtils.computeWordMatchBasedScore(questionLemmaBOW, answerLemmaBOW));
-      scoreWeights.add(2.0);
-      scores.add(ScoringUtils.computeWordMatchBasedScore(questionNEBOW, answerNEBOW));
-      scoreWeights.add(2.0);
+      if (answerUnigramBOW.size() != 0) {
+        scores.add(ScoringUtils.computeWordMatchBasedScore(questionUnigramBOW, answerUnigramBOW));
+        scoreWeights.add(3.0);
+      }
+      if (answerBigramBOW.size() != 0) {
+        scores.add(ScoringUtils.computeWordMatchBasedScore(questionBigramBOW, answerBigramBOW));
+        scoreWeights.add(1.0);
+      }
+      if (answerTrigramBOW.size() != 0) {
+        scores.add(ScoringUtils.computeWordMatchBasedScore(questionTrigramBOW, answerTrigramBOW));
+        scoreWeights.add(1.0);
+      }
+      if (answerPOSBOW.size() != 0) {
+        scores.add(ScoringUtils.computeWordMatchBasedScore(questionPOSBOW, answerPOSBOW));
+        scoreWeights.add(2.0);
+      }
+      if (answerLemmaBOW.size() != 0) {
+        scores.add(ScoringUtils.computeWordMatchBasedScore(questionLemmaBOW, answerLemmaBOW));
+        scoreWeights.add(2.0);
+      }
+      if (answerNEBOW.size() != 0) {
+        scores.add(ScoringUtils.computeWordMatchBasedScore(questionNEBOW, answerNEBOW));
+        scoreWeights.add(2.0);
+      }
 
       // Merge Scores
       score = ((double) ScoringUtils.getWeightedScore(scores, scoreWeights));

@@ -23,27 +23,19 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
-
 import org.apache.uima.cas.CAS;
 import org.apache.uima.cas.CASException;
 import org.apache.uima.collection.CasConsumer_ImplBase;
 import org.apache.uima.collection.base_cpm.CasObjectProcessor;
-import org.apache.uima.examples.SourceDocumentInformation;
-import org.apache.uima.fit.util.JCasUtil;
 import org.apache.uima.jcas.JCas;
 import org.apache.uima.jcas.cas.FSArray;
-import org.apache.uima.jcas.cas.FSList;
-import org.apache.uima.jcas.tcas.Annotation;
 import org.apache.uima.resource.ResourceConfigurationException;
 import org.apache.uima.resource.ResourceInitializationException;
 import org.apache.uima.resource.ResourceProcessException;
 import org.apache.uima.util.Level;
 import org.apache.uima.util.Logger;
 import org.apache.uima.util.ProcessTrace;
-
 import edu.cmu.deiis.types.Answer;
 import edu.cmu.deiis.types.AnswerScore;
 import edu.cmu.deiis.types.QASystemOutput;
@@ -139,6 +131,7 @@ public class AnnotationPrinter extends CasConsumer_ImplBase implements CasObject
     AnswerScore answerScore = null;
     FSArray ansScoreArray = null;
     int nValue = 0;
+    int kValue =0;
     while (qaIter.hasNext()) {
       qaSystemOutput = (QASystemOutput) qaIter.next();
       question = qaSystemOutput.getQuestionAnnotation();
@@ -147,7 +140,9 @@ public class AnnotationPrinter extends CasConsumer_ImplBase implements CasObject
         System.out.println("Question: " + question.getCoveredText());
         ansScoreArray = qaSystemOutput.getAnswerScores();
         nValue = ansScoreArray.size();
+        kValue = 0;
         for (int ansId = 0; ansId < nValue; ansId++) {
+
           answerScore = (AnswerScore) ansScoreArray.get(ansId);
           answer = answerScore.getAnswer();
           if (answer.getIsCorrect()) {
@@ -155,6 +150,7 @@ public class AnnotationPrinter extends CasConsumer_ImplBase implements CasObject
                     + answer.getCoveredText());
             fileWriter.write("+ " + this.roundTwoDecimals(answerScore.getScore()) + " "
                     + answer.getCoveredText() + "\n");
+            kValue++;
           } else {
             System.out.println("- " + this.roundTwoDecimals(answerScore.getScore()) + " "
                     + answer.getCoveredText());
@@ -162,9 +158,9 @@ public class AnnotationPrinter extends CasConsumer_ImplBase implements CasObject
                     + answer.getCoveredText() + "\n");
           }
         }
-        System.out.println("Precision at " + nValue + ": "
+        System.out.println("Precision at " + kValue + ": "
                 + this.roundTwoDecimals(qaSystemOutput.getPrecisionAtK()));
-        fileWriter.write("Precision at " + nValue + ": "
+        fileWriter.write("Precision at " + kValue + ": "
                 + this.roundTwoDecimals(qaSystemOutput.getPrecisionAtK()) + "\n");
       } catch (IOException e) {
         System.err.println("Cannot write to the output file: " + e.getMessage());

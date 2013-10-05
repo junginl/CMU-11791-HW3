@@ -13,8 +13,8 @@ import org.apache.uima.jcas.tcas.Annotation;
 
 
 /** Output type for CasConsumer
- * Updated by JCasGen Sun Sep 29 22:37:38 EDT 2013
- * XML source: /usr0/home/kmuruges/Shared/Dropbox/CMU/Workspace/hw3-kmuruges/src/main/resources/descriptors/types/output-types.xml
+ * Updated by JCasGen Fri Oct 04 20:18:18 EDT 2013
+ * XML source: /usr0/home/kmuruges/Shared/Dropbox/CMU/Workspace/hw3-kmuruges/src/main/resources/descriptors/analysis-engine/EvaluationDescriptor.xml
  * @generated */
 public class QASystemOutput extends Annotation {
   /** @generated

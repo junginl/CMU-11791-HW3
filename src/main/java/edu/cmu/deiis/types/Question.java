@@ -10,8 +10,8 @@ import org.apache.uima.jcas.cas.TOP_Type;
 
 
 /** 
- * Updated by JCasGen Wed Oct 02 21:29:54 EDT 2013
- * XML source: /usr0/home/kmuruges/Shared/Dropbox/CMU/Workspace/hw3-kmuruges/src/main/resources/descriptors/analysis-engine/ScoringDescriptor.xml
+ * Updated by JCasGen Fri Oct 04 20:18:18 EDT 2013
+ * XML source: /usr0/home/kmuruges/Shared/Dropbox/CMU/Workspace/hw3-kmuruges/src/main/resources/descriptors/analysis-engine/EvaluationDescriptor.xml
  * @generated */
 public class Question extends Annotation {
   /** @generated

@@ -12,6 +12,7 @@
     <typeSystemDescription>
       <imports>
         <import location="../types/deiis_types.xml"/>
+      <import location="../types/output-types.xml"/>
       </imports>
     </typeSystemDescription>
     <typePriorities/>
@@ -19,8 +20,7 @@
     <capabilities>
       <capability>
         <inputs/>
-        <outputs>
-          </outputs>
+        <outputs/>
         <languagesSupported/>
       </capability>
     </capabilities>

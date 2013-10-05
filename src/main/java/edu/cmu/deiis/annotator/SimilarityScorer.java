@@ -55,15 +55,34 @@ public class SimilarityScorer extends JCasAnnotator_ImplBase {
   @Override
   public void process(JCas aJCas) throws AnalysisEngineProcessException {
 
+    List<String> questionUnigramBOW = new ArrayList<String>(0);
+    List<String> questionBigramBOW = new ArrayList<String>(0);
+    List<String> questionTrigramBOW = new ArrayList<String>(0);
+    List<String> questionPOSBOW = new ArrayList<String>(0);
+    List<String> questionLemmaBOW = new ArrayList<String>(0);
+    List<String> questionNEBOW = new ArrayList<String>(0);
+    Answer answer = null;
+    AnswerScore answerScore = null;
+    List<String> answerUnigramBOW = null;
+    List<String> answerBigramBOW = null;
+    List<String> answerTrigramBOW = null;
+    List<String> answerPOSBOW = null;
+    List<String> answerLemmaBOW = null;
+    List<String> answerNEBOW = null;
+    List<Double> scores = null;
+    List<Double> scoreWeights = new ArrayList<Double>(0);
+    
+    
     // Fetch the res[ective annotations from JCas
     Question question = JCasUtil.selectSingle(aJCas, Question.class);
+    boolean remoteAnnotStatus = false;
     List<Answer> answerList = new ArrayList<Answer>(JCasUtil.select(aJCas, Answer.class));
     List<NGram> nGramTokens = JCasUtil.selectCovered(NGram.class, question);
     List<POSToken> posTokens = JCasUtil.selectCovered(POSToken.class, question);
     List<LemmaToken> lemmaTokens = JCasUtil.selectCovered(LemmaToken.class, question);
     ResultSpecification resultSpec = getResultSpecification();
     // Check the status of the remote annotation service call
-    boolean remoteAnnotStatus = resultSpec.containsType("org.cleartk.ne.type.NamedEntityMention",
+    remoteAnnotStatus = resultSpec.containsType("org.cleartk.ne.type.NamedEntityMention",
             aJCas.getDocumentLanguage());
 
     List<NamedEntityMention> neList = new ArrayList<NamedEntityMention>(0);
@@ -72,14 +91,7 @@ public class SimilarityScorer extends JCasAnnotator_ImplBase {
       neList = JCasUtil.selectCovered(NamedEntityMention.class, question);
     }
 
-    List<String> questionUnigramBOW = new ArrayList<String>(0);
-    List<String> questionBigramBOW = new ArrayList<String>(0);
-    List<String> questionTrigramBOW = new ArrayList<String>(0);
-    List<String> questionPOSBOW = new ArrayList<String>(0);
-    List<String> questionLemmaBOW = new ArrayList<String>(0);
-    List<String> questionNEBOW = new ArrayList<String>(0);
-    List<Double> scores = null;
-    List<Double> scoreWeights = new ArrayList<Double>(0);
+    
 
     Iterator<NGram> iter1 = nGramTokens.iterator();
     NGram ngram = null;
@@ -120,14 +132,7 @@ public class SimilarityScorer extends JCasAnnotator_ImplBase {
 
     // Get Answers from pipeline
     Iterator<Answer> iter2 = answerList.iterator();
-    Answer answer = null;
-    AnswerScore answerScore = null;
-    List<String> answerUnigramBOW = null;
-    List<String> answerBigramBOW = null;
-    List<String> answerTrigramBOW = null;
-    List<String> answerPOSBOW = null;
-    List<String> answerLemmaBOW = null;
-    List<String> answerNEBOW = null;
+    
 
     // Merged Score/ Weighted Score
     double score = 0.0;

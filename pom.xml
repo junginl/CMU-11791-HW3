@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>edu.cmu.lti.11791.f13.hw3</groupId>
 	<artifactId>hw3-kmuruges</artifactId>
-	<version>0.0.1</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<name>11-791-Fall2013-HW3</name>
 	<scm>
 		<connection>scm:git:git@github.com:keerthi166/CMU-11791-HW3.git</connection>

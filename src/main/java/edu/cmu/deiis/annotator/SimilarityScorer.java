@@ -10,6 +10,7 @@ import org.apache.uima.analysis_engine.ResultSpecification;
 import org.apache.uima.fit.component.JCasAnnotator_ImplBase;
 import org.apache.uima.fit.util.JCasUtil;
 import org.apache.uima.jcas.JCas;
+import org.apache.uima.jcas.cas.FSArray;
 import org.apache.uima.resource.ResourceInitializationException;
 import org.apache.uima.util.Level;
 import org.apache.uima.util.Logger;
@@ -71,8 +72,7 @@ public class SimilarityScorer extends JCasAnnotator_ImplBase {
     List<String> answerNEBOW = null;
     List<Double> scores = null;
     List<Double> scoreWeights = new ArrayList<Double>(0);
-    
-    
+
     // Fetch the res[ective annotations from JCas
     Question question = JCasUtil.selectSingle(aJCas, Question.class);
     boolean remoteAnnotStatus = false;
@@ -90,8 +90,6 @@ public class SimilarityScorer extends JCasAnnotator_ImplBase {
       neList = new ArrayList<NamedEntityMention>(0);
       neList = JCasUtil.selectCovered(NamedEntityMention.class, question);
     }
-
-    
 
     Iterator<NGram> iter1 = nGramTokens.iterator();
     NGram ngram = null;
@@ -130,9 +128,9 @@ public class SimilarityScorer extends JCasAnnotator_ImplBase {
       questionNEBOW.add(neIter.next().getCoveredText());
     }
 
+
     // Get Answers from pipeline
     Iterator<Answer> iter2 = answerList.iterator();
-    
 
     // Merged Score/ Weighted Score
     double score = 0.0;
